@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Start from "./start/Start";
-// import Question from "./question/Question";
-// import Result from "./result/Result";
+import Question from "./question/Question";
+import Result from "./result/Result";
 
-const Quiz = ({ questions, title, startMessage, restart }) => {
+const Quiz = ({ questions, restart }) => {
   const [displaySection, setDisplaySection] = useState("start"); // which section of app to render
   const [questionIndex, setQuestionIndex] = useState(0); // index of question to show
   const [results, setResults] = useState([]); // store the results
@@ -37,13 +37,12 @@ const Quiz = ({ questions, title, startMessage, restart }) => {
       .length;
     return totalCorrectAnswers;
   };
+
   return (
     <>
-      <Start onStartQuiz={handleQuizInitialization} />
-      {/* {displaySection === "start" ? (
+      {displaySection === "start" ? (
         <Start onStartQuiz={handleQuizInitialization} />
-      ) 
-      : displaySection === "questions" ? (
+      ) : displaySection === "questions" ? (
         <Question
           key={questionIndex}
           question={questions[questionIndex]}
@@ -51,7 +50,7 @@ const Quiz = ({ questions, title, startMessage, restart }) => {
         />
       ) : (
         <Result restart={restart} {...calculateResult(results)} />
-      )} */}
+      )}
     </>
   );
 };
