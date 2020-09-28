@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getQuiz } from "../api/quizApi";
+import { getQuiz } from "../api/getQuiz";
 
 const useQuiz = () => {
   const [quiz, setQuiz] = useState({});
