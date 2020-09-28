@@ -15,7 +15,7 @@ const useQuiz = () => {
   useEffect(() => {
     loadQuiz();
   }, []);
-
+  // console.log("quiz", quiz); // this returns the whole quiz for us to get the title and show on start page
   return [quiz, loading];
 };
 

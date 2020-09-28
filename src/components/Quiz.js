@@ -1,13 +1,14 @@
 import React, { useState } from "react";
+import Start from "./start/Start";
+// import Question from "./question/Question";
+// import Result from "./result/Result";
 
 const Quiz = ({ questions, title, startMessage, restart }) => {
-  const [view, setView] = useState("start"); // which part of app to render
   const [displaySection, setDisplaySection] = useState("start"); // which section of app to render
   const [questionIndex, setQuestionIndex] = useState(0); // index of question to show
   const [results, setResults] = useState([]); // store the results
 
-  // const questions = quizData?.questions;
-  console.log("questions", questions);
+  // start the quiz
   const handleQuizInitialization = () => {
     setDisplaySection("questions");
   };
@@ -27,7 +28,7 @@ const Quiz = ({ questions, title, startMessage, restart }) => {
     if (questionIndex < questions.length - 1) {
       setQuestionIndex(questionIndex + 1);
     } else {
-      setView("results");
+      setDisplaySection("results");
     }
   };
 
@@ -38,13 +39,11 @@ const Quiz = ({ questions, title, startMessage, restart }) => {
   };
   return (
     <>
-      {view === "intro" ? (
-        <Intro
-          title={title}
-          introMessage={startMessage}
-          onStartQuiz={handleQuizInitialization}
-        />
-      ) : view === "questions" ? (
+      <Start onStartQuiz={handleQuizInitialization} />
+      {/* {displaySection === "start" ? (
+        <Start onStartQuiz={handleQuizInitialization} />
+      ) 
+      : displaySection === "questions" ? (
         <Question
           key={questionIndex}
           question={questions[questionIndex]}
@@ -52,7 +51,7 @@ const Quiz = ({ questions, title, startMessage, restart }) => {
         />
       ) : (
         <Result restart={restart} {...calculateResult(results)} />
-      )}
+      )} */}
     </>
   );
 };

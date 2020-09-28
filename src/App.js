@@ -5,6 +5,8 @@ import Quiz from "./components/Quiz";
 const App = () => {
   const [id, setId] = useState(1); // set id for quiz
   const [quiz, loading] = useQuiz(); // helper hook for quiz
+
+  console.log("quiz in App.js", quiz);
   return (
     <>
       {loading ? (
