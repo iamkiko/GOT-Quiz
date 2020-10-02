@@ -11,6 +11,5 @@ export async function handleResponse(response) {
 // Handle with toast/actual error redirecting/handling on enterprise app
 export function handleError(error) {
   // eslint-disable-next-line no-console
-  console.error("Here's what went wrong: " + error);
-  throw error;
+  throw new Error("Here's what went wrong: " + error);
 }

@@ -3,14 +3,13 @@ import { markSelected } from "../../../utils/utils";
 import Answer from "../Answer";
 
 const SingleAnswer = ({ question, onAnswersSubmit }) => {
-  console.log("question in singleAnswer", question);
-  const [numSelected, setNumSelected] = useState(0);
+  const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // to enable/disable submit button if none selected
   const [answers, setAnswers] = useState(
     markSelected(question.possible_answers)
   );
+
   const handleAnswerClick = (answerIndex) => {
     let clickedAnswer = answers[answerIndex];
-    console.log("clickedAnswer", clickedAnswer);
 
     if (clickedAnswer.selected === false) {
       setAnswers(
@@ -23,7 +22,7 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
             : { ...answer, selected: false }
         )
       );
-      setNumSelected(1);
+      setNumOfSelectedAnswers(1);
     } else {
       setAnswers(
         answers.map((answer, index) =>
@@ -35,7 +34,7 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
             : answer
         )
       );
-      setNumSelected(0);
+      setNumOfSelectedAnswers(0);
     }
   };
 
@@ -53,7 +52,10 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
           {answer.caption}
         </Answer>
       ))}
-      <button onClick={() => onAnswersSubmit(answers)} disabled={!numSelected}>
+      <button
+        onClick={() => onAnswersSubmit(answers)}
+        disabled={!numOfSelectedAnswers}
+      >
         Submit Answer
       </button>
     </>

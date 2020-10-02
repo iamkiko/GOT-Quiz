@@ -7,11 +7,6 @@ const Answer = (props) => {
     <button
       // onClick={console.log("clicked from answer component")}
       onClick={() => props.onClick(props.index)}
-      // style={
-      //   selected
-      //     ? { backgroundColor: "deepskyblue" }
-      //     : { backgroundColor: "lightgray" }
-      // }
     >
       {props.children}
     </button>

@@ -3,7 +3,7 @@ import { markSelected } from "../../../utils/utils";
 import Answer from "../Answer";
 
 const TrueFalse = ({ question, onAnswersSubmit }) => {
-  // spread object and append possible_answers to be uniform with other answer formats
+  // spread object and append possible_answers to be uniform with other answer formats i.e. store the possible_answers
   const fullQuestion = {
     ...question,
     possible_answers: [

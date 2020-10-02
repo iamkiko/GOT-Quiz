@@ -4,20 +4,14 @@
 export const markSelected = (arr) =>
   arr.map((obj) => ({ ...obj, selected: false }));
 
-// Check if current option is correct or not
-export const markStatus = (answers, suffix) => {
-  return answers.map((answer) => {
-    let status =
-      answer["correct" + suffix] === answer["selected" + suffix] &&
-      answer.selected === true
-        ? "Selected Correctly"
-        : answer["correct" + suffix] !== answer["selected" + suffix] &&
-          answer.selected === true
-        ? "Incorrectly Selected"
-        : answer["correct" + suffix] !== answer["selected" + suffix] &&
-          answer.selected === false
-        ? "Correct Answer"
-        : "";
-    return { ...answer, status };
-  });
+// Check if both arrays are equal regardless of order; for use in multiple answers
+export const isEqual = (a, b) => {
+  if (a.length !== b.length) return false;
+  const uniqueValues = new Set([...a, ...b]);
+  for (const v of uniqueValues) {
+    const aCount = a.filter((e) => e === v).length;
+    const bCount = b.filter((e) => e === v).length;
+    if (aCount !== bCount) return false;
+  }
+  return true;
 };

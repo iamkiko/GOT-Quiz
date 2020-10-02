@@ -3,39 +3,38 @@ import Start from "./start/Start";
 import Question from "./question/Question";
 import Result from "./result/Result";
 
-const Quiz = ({ questions, restart }) => {
+const Quiz = ({ questions }) => {
   const [displaySection, setDisplaySection] = useState("start"); // which section of app to render
   const [questionIndex, setQuestionIndex] = useState(0); // index of question to show
-  const [results, setResults] = useState([]); // store the results
+  const [score, setScore] = useState(0); // store the score
 
   // start the quiz
   const handleQuizInitialization = () => {
     setDisplaySection("questions");
+    setScore(0);
   };
 
   // handling submission of answers and figuring out which type they are
   const handleAnswerSubmission = (answers) => {
     let question = questions[questionIndex];
-    let suffix = question.question_type === "TRUE_FALSE" ? "Boolean" : "";
+    let correctAnswer = question.correct_answer;
+    let points = question.points;
 
-    let answerResult = answers.every(
-      (answer) => answer["correct" + suffix] === answer["selected" + suffix]
-    );
+    // need to update this to figure out if it's correct or not
+    // check a_id vs correct answer
+    answers.filter((answer) => {
+      if (answer.selected === true && answer.a_id === correctAnswer) {
+        setScore(score + points);
+      }
+    });
 
-    setResults([...results, answerResult]);
-
-    // Keep showing questions until quiz ends
+    // Keep showing questions until quiz ends & reset in case user opts to start
     if (questionIndex < questions.length - 1) {
       setQuestionIndex(questionIndex + 1);
     } else {
       setDisplaySection("results");
+      setQuestionIndex(0);
     }
-  };
-
-  const calculateResult = (results) => {
-    let totalCorrectAnswers = results.filter((answer) => answer === true)
-      .length;
-    return totalCorrectAnswers;
   };
 
   return (
@@ -47,9 +46,11 @@ const Quiz = ({ questions, restart }) => {
           key={questionIndex}
           question={questions[questionIndex]}
           onAnswersSubmit={handleAnswerSubmission}
+          score={score}
+          setScore={setScore}
         />
       ) : (
-        <Result restart={restart} {...calculateResult(results)} />
+        <Result restart={() => setDisplaySection("start")} score={score} />
       )}
     </>
   );

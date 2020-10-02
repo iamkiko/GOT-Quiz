@@ -1,39 +1,63 @@
 import React, { useState } from "react";
-import { markSelected } from "../../../utils/utils";
+import { isEqual, markSelected } from "../../../utils/utils";
 import Answer from "../Answer";
 
-const MultiAnswer = ({ question, onAnswersSubmit }) => {
-  const [numSelected, setNumSelected] = useState(0);
+const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
+  const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // how many options selected
   const [answers, setAnswers] = useState(
     markSelected(question.possible_answers)
   );
+  const [multipleAnswers, setMultipleAnswers] = useState([]);
+  const correctAnswerArr = question.correct_answer;
+  const points = question.points;
+  const comparison = isEqual(correctAnswerArr, multipleAnswers);
 
   const handleAnswerClick = (answerIndex) => {
     let clickedAnswer = answers[answerIndex];
+    let answerId = clickedAnswer.a_id;
+    // upon clicking, need to get the a_id of option selected
     if (clickedAnswer.selected === false) {
+      // push new answer (i.e. what was just selected) to a temp array
+      // setMultipleAnswers to the temp array // update state to this for comparison later
+      setMultipleAnswers((tempArr) =>
+        tempArr.includes(answerId) ? [...tempArr] : [...tempArr, answerId]
+      );
       setAnswers(
-        answers.map((answer, index) =>
-          answerIndex === index
+        answers.map((answer, index) => {
+          return answerIndex === index
             ? {
                 ...clickedAnswer,
                 selected: true,
               }
-            : answer
-        )
+            : answer;
+        })
       );
-      setNumSelected(numSelected + 1);
+      setNumOfSelectedAnswers(numOfSelectedAnswers + 1);
     } else {
+      setMultipleAnswers((tempArr) =>
+        tempArr.filter((selection) => selection !== answerId)
+      );
       setAnswers(
-        answers.map((answer, index) =>
-          answerIndex === index
+        answers.map((answer, index) => {
+          return answerIndex === index
             ? {
                 ...clickedAnswer,
                 selected: false,
               }
-            : answer
-        )
+            : answer;
+        })
       );
-      setNumSelected(numSelected - 1);
+      setNumOfSelectedAnswers(numOfSelectedAnswers - 1);
+    }
+  };
+
+  // helper function to execute logic of if all correct & updating score
+  const onSubmitMulti = () => {
+    if (comparison === true) {
+      setScore(score + points);
+      onAnswersSubmit(answers);
+    } else {
+      onAnswersSubmit(answers);
     }
   };
 
@@ -43,19 +67,18 @@ const MultiAnswer = ({ question, onAnswersSubmit }) => {
       <img src={question.img} />
       {answers.map((answer, index) => (
         <Answer
-          key={answer.a_id}
+          key={index}
           index={index}
           type={question.question_type}
           onClick={handleAnswerClick}
         >
-          {answer.caption}
+          {answer?.caption}
         </Answer>
       ))}
-      <button onClick={() => onAnswersSubmit(answers)} disabled={!numSelected}>
+      <button onClick={() => onSubmitMulti()} disabled={!numOfSelectedAnswers}>
         Submit Answer
       </button>
     </>
   );
 };
-
 export default MultiAnswer;
