@@ -15,8 +15,6 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
     markSelected(question.possible_answers)
   );
 
-  console.log("numOf", numOfSelectedAnswers);
-  console.log("answers", answers);
   const handleAnswerClick = (answerIndex) => {
     let clickedAnswer = answers[answerIndex];
 

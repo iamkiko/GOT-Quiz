@@ -33,6 +33,7 @@ export const StartButton = styled.button`
   font-family: "Cinzel", serif;
   background-color: #26867d;
   color: #fff;
+  margin-bottom: 16px;
   border-radius: 3px;
   border: 1px solid #3acabb;
   cursor: pointer;
@@ -131,4 +132,8 @@ export const SubmitButton = styled.button`
 export const AnswerType = styled.p`
   font-size: 12px;
   font-style: italic;
+`;
+
+export const ResultInfo = styled.p`
+  margin: 8px;
 `;
