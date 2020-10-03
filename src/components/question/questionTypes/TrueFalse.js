@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { markSelected } from "../../../utils/utils";
 import Answer from "../Answer";
+import {
+  AnswerContainer,
+  AnswerType,
+  Image,
+  QuestionTitle,
+  SubmitButton,
+} from "../../styles";
 
 const TrueFalse = ({ question, onAnswersSubmit }) => {
   // spread object and append possible_answers to be uniform with other answer formats i.e. store the possible_answers
@@ -46,23 +53,29 @@ const TrueFalse = ({ question, onAnswersSubmit }) => {
   };
   return (
     <>
-      <div>{question.title}</div>
-      <img src={question.img} />
-      {answers.map((answer, index) => {
-        return (
-          <Answer
-            key={answer.a_id}
-            index={index}
-            type={question.question_type}
-            onClick={handleAnswerClick}
-          >
-            {answer.caption}
-          </Answer>
-        );
-      })}
-      <button onClick={() => onAnswersSubmit(answers)} disabled={!numSelected}>
+      <QuestionTitle>{question.title}</QuestionTitle>
+      <AnswerType>True or not?</AnswerType>
+      <Image src={question.img} alt={question.title} />
+      <AnswerContainer>
+        {answers.map((answer, index) => {
+          return (
+            <Answer
+              key={answer.a_id}
+              index={index}
+              type={question.question_type}
+              onClick={handleAnswerClick}
+            >
+              {answer.caption}
+            </Answer>
+          );
+        })}
+      </AnswerContainer>
+      <SubmitButton
+        onClick={() => onAnswersSubmit(answers)}
+        disabled={!numSelected}
+      >
         Submit Answer
-      </button>
+      </SubmitButton>
     </>
   );
 };

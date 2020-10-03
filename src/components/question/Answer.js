@@ -1,15 +1,11 @@
 import React from "react";
-import types from "./questionTypes/_questionTypes";
+import { AnswerOption, AnswerColumn, Radio } from "../styles";
 
-const Answer = (props) => {
-  // console.log("props", props);
+const Answer = ({ selected, index, children, onClick }) => {
   return (
-    <button
-      // onClick={console.log("clicked from answer component")}
-      onClick={() => props.onClick(props.index)}
-    >
-      {props.children}
-    </button>
+    <AnswerColumn>
+      <AnswerOption onClick={() => onClick(index)}>{children}</AnswerOption>
+    </AnswerColumn>
   );
 };
 

@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { isEqual, markSelected } from "../../../utils/utils";
 import Answer from "../Answer";
+import {
+  AnswerContainer,
+  AnswerType,
+  Image,
+  QuestionTitle,
+  SubmitButton,
+} from "../../styles";
 
 const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
   const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // how many options selected
@@ -63,21 +70,30 @@ const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
 
   return (
     <>
-      <div>{question.title}</div>
-      <img src={question.img} />
-      {answers.map((answer, index) => (
-        <Answer
-          key={index}
-          index={index}
-          type={question.question_type}
-          onClick={handleAnswerClick}
-        >
-          {answer?.caption}
-        </Answer>
-      ))}
-      <button onClick={() => onSubmitMulti()} disabled={!numOfSelectedAnswers}>
+      <QuestionTitle>{question.title}</QuestionTitle>
+      <AnswerType>
+        Please select multiple answers - they all need to be correct (no
+        pressure!)
+      </AnswerType>
+      <Image src={question.img} alt={question.title} />
+      <AnswerContainer>
+        {answers.map((answer, index) => (
+          <Answer
+            key={index}
+            index={index}
+            type={question.question_type}
+            onClick={handleAnswerClick}
+          >
+            {answer?.caption}
+          </Answer>
+        ))}
+      </AnswerContainer>
+      <SubmitButton
+        onClick={() => onSubmitMulti()}
+        disabled={!numOfSelectedAnswers}
+      >
         Submit Answer
-      </button>
+      </SubmitButton>
     </>
   );
 };

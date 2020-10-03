@@ -1,11 +1,14 @@
 import React from "react";
-
+import { StartButton, StartTitle } from "../styles";
 const Result = ({ score, restart }) => {
   return (
     <>
-      <h2>Quiz Results</h2>
-      <p>Nice one. Your score was {score} out of 20</p>
-      <button onClick={restart}>Try Again</button>
+      <StartTitle>Quiz Results</StartTitle>
+      <p>You made it to the end!</p>{" "}
+      <p>
+        Your score was <strong>{score}</strong> out of <strong>20.</strong>
+      </p>
+      <StartButton onClick={restart}>Try Again</StartButton>
     </>
   );
 };

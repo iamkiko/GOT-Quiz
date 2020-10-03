@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Start from "./start/Start";
 import Question from "./question/Question";
 import Result from "./result/Result";
+import { GlobalStyle, QuizContainer } from "./styles";
 
 const Quiz = ({ questions }) => {
   const [displaySection, setDisplaySection] = useState("start"); // which section of app to render
@@ -38,7 +39,8 @@ const Quiz = ({ questions }) => {
   };
 
   return (
-    <>
+    <QuizContainer>
+      <GlobalStyle />
       {displaySection === "start" ? (
         <Start onStartQuiz={handleQuizInitialization} />
       ) : displaySection === "questions" ? (
@@ -52,7 +54,7 @@ const Quiz = ({ questions }) => {
       ) : (
         <Result restart={() => setDisplaySection("start")} score={score} />
       )}
-    </>
+    </QuizContainer>
   );
 };
 

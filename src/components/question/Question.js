@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SingleAnswer from "./questionTypes/SingleAnswer";
 import MultiAnswer from "./questionTypes/MultiAnswer";
 import TrueFalse from "./questionTypes/TrueFalse";
