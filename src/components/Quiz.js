@@ -8,6 +8,7 @@ const Quiz = ({ questions }) => {
   const [displaySection, setDisplaySection] = useState("start"); // which section of app to render
   const [questionIndex, setQuestionIndex] = useState(0); // index of question to show
   const [score, setScore] = useState(0); // store the score
+  const [showSolution, setShowSolution] = useState(false); // to show the correct answer upon submission
 
   // start the quiz
   const handleQuizInitialization = () => {
@@ -21,21 +22,25 @@ const Quiz = ({ questions }) => {
     let correctAnswer = question.correct_answer;
     let points = question.points;
 
-    // need to update this to figure out if it's correct or not
-    // check a_id vs correct answer
+    // check a_id vs correct answer to update score
     answers.filter((answer) => {
       if (answer.selected === true && answer.a_id === correctAnswer) {
         setScore(score + points);
       }
     });
 
+    setShowSolution(true);
+
     // Keep showing questions until quiz ends & reset in case user opts to start
-    if (questionIndex < questions.length - 1) {
-      setQuestionIndex(questionIndex + 1);
-    } else {
-      setDisplaySection("results");
-      setQuestionIndex(0);
-    }
+    setTimeout(() => {
+      setShowSolution(false);
+      if (questionIndex < questions.length - 1) {
+        setQuestionIndex(questionIndex + 1);
+      } else {
+        setDisplaySection("results");
+        setQuestionIndex(0);
+      }
+    }, 3000);
   };
 
   return (
@@ -50,6 +55,7 @@ const Quiz = ({ questions }) => {
           onAnswersSubmit={handleAnswerSubmission}
           score={score}
           setScore={setScore}
+          showSolution={showSolution}
         />
       ) : (
         <Result restart={() => setDisplaySection("start")} score={score} />

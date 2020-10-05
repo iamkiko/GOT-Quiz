@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { markSelected } from "../../../utils/utils";
+import { sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
   AnswerContainer,
@@ -9,10 +9,10 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const SingleAnswer = ({ question, onAnswersSubmit }) => {
+const SingleAnswer = ({ question, onAnswersSubmit, showSolution }) => {
   const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // to enable/disable submit button if none selected
   const [answers, setAnswers] = useState(
-    markSelected(question.possible_answers)
+    sanitizeData(question.possible_answers, question.correct_answer)
   );
 
   const handleAnswerClick = (answerIndex) => {
@@ -20,16 +20,15 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
 
     if (clickedAnswer.selected === false) {
       setAnswers(
-        answers.map((answer, index) =>
-          answerIndex === index
+        answers.map((answer, index) => {
+          return answerIndex === index
             ? {
                 ...clickedAnswer,
                 selected: true,
               }
-            : { ...answer, selected: false }
-        )
+            : { ...answer, selected: false };
+        })
       );
-
       setNumOfSelectedAnswers(1);
     } else {
       setAnswers(
@@ -58,6 +57,9 @@ const SingleAnswer = ({ question, onAnswersSubmit }) => {
             index={index}
             type={question.question_type}
             onClick={handleAnswerClick}
+            selected={answer.selected}
+            isCorrect={answer.isCorrect}
+            showSolution={showSolution}
           >
             {answer.caption}
           </Answer>

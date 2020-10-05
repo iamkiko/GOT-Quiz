@@ -10,7 +10,13 @@ const answerTypes = {
   truefalse: TrueFalse,
 };
 
-const Question = ({ question, onAnswersSubmit, score, setScore }) => {
+const Question = ({
+  question,
+  onAnswersSubmit,
+  score,
+  setScore,
+  showSolution,
+}) => {
   const RenderQuestion = answerTypes[question.question_type];
 
   return (
@@ -19,6 +25,7 @@ const Question = ({ question, onAnswersSubmit, score, setScore }) => {
       onAnswersSubmit={onAnswersSubmit}
       score={score}
       setScore={setScore}
+      showSolution={showSolution}
     />
   );
 };

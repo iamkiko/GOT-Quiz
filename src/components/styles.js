@@ -88,6 +88,28 @@ export const AnswerOption = styled.button`
     background-color: #fff2cc;
     font-weight: 600;
   }
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      border: 2px #e6ac00 solid;
+    `}
+
+  ${({ isCorrect, showSolution }) =>
+    isCorrect && showSolution
+      ? css`
+          background: #3acabb;
+          border: 2px #e6ac00 solid;
+          animation: blinker 1.5s linear infinite;
+          @keyframes blinker {
+            50% {
+              opacity: 0.3;
+            }
+          }
+        `
+      : css`
+          background-color: #fff;
+        `}
 `;
 
 export const AnswerColumn = styled.div`

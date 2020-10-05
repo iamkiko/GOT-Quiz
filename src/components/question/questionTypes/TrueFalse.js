@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { markSelected } from "../../../utils/utils";
+import { sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
   AnswerContainer,
@@ -9,7 +9,7 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const TrueFalse = ({ question, onAnswersSubmit }) => {
+const TrueFalse = ({ question, onAnswersSubmit, showSolution }) => {
   // spread object and append possible_answers to be uniform with other answer formats i.e. store the possible_answers
   const fullQuestion = {
     ...question,
@@ -20,7 +20,7 @@ const TrueFalse = ({ question, onAnswersSubmit }) => {
   };
   const [numSelected, setNumSelected] = useState(0);
   const [answers, setAnswers] = useState(
-    markSelected(fullQuestion.possible_answers)
+    sanitizeData(fullQuestion.possible_answers, fullQuestion.correct_answer)
   );
 
   const handleAnswerClick = (answerIndex) => {
@@ -64,6 +64,9 @@ const TrueFalse = ({ question, onAnswersSubmit }) => {
               index={index}
               type={question.question_type}
               onClick={handleAnswerClick}
+              selected={answer.selected}
+              isCorrect={answer.isCorrect}
+              showSolution={showSolution}
             >
               {answer.caption}
             </Answer>

@@ -1,8 +1,23 @@
 // Helper function file for logic and calculations
 
 // Add the key of selected false so we can track which answer has been selected
-export const markSelected = (arr) =>
-  arr.map((obj) => ({ ...obj, selected: false }));
+export const sanitizeData = (arr, correctAnswer) => {
+  debugger;
+  if (typeof correctAnswer === "object") {
+    // correctAnswer can be boolean, number or array, we are checking for array or not and typeof array is object
+    return arr.map((obj) => ({
+      ...obj,
+      selected: false,
+      isCorrect: correctAnswer.includes(obj.a_id),
+    }));
+  } else {
+    return arr.map((obj) => ({
+      ...obj,
+      selected: false,
+      isCorrect: obj.a_id === correctAnswer,
+    }));
+  }
+};
 
 // Check if both arrays are equal regardless of order; for use in multiple answers
 export const isEqual = (a, b) => {

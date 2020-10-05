@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { isEqual, markSelected } from "../../../utils/utils";
+import { isEqual, sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
   AnswerContainer,
@@ -9,10 +9,16 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
+const MultiAnswer = ({
+  question,
+  onAnswersSubmit,
+  score,
+  setScore,
+  showSolution,
+}) => {
   const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // how many options selected
   const [answers, setAnswers] = useState(
-    markSelected(question.possible_answers)
+    sanitizeData(question.possible_answers, question.correct_answer)
   );
   const [multipleAnswers, setMultipleAnswers] = useState([]);
   const correctAnswerArr = question.correct_answer;
@@ -83,6 +89,9 @@ const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
             index={index}
             type={question.question_type}
             onClick={handleAnswerClick}
+            selected={answer.selected}
+            isCorrect={answer.isCorrect}
+            showSolution={showSolution}
           >
             {answer?.caption}
           </Answer>
