@@ -106,7 +106,7 @@ export const AnswerOption = styled.button`
     css`
       font-weight: 800;
       color: #6e62ae;
-      border: 2px #e6ac00 solid;
+      border: 2px #ff5e13 solid;
       box-shadow: 0px 1px 2px 1px #e6ac00;
     `}
 
@@ -125,6 +125,7 @@ export const AnswerOption = styled.button`
         `
       : css`
           background-color: #fff;
+          ${"" /* border: none; */}
         `}
 
 
@@ -132,6 +133,10 @@ export const AnswerOption = styled.button`
   &:active {
     background-color: #fff2cc;
     font-weight: 600;
+  }
+
+  &:focus {
+    outline: none;
   }
 `;
 
