@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Start from "./start/Start";
 import Question from "./question/Question";
 import Result from "./result/Result";

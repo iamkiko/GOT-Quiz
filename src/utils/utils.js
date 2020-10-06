@@ -2,7 +2,6 @@
 
 // Add the key of selected false so we can track which answer has been selected
 export const sanitizeData = (arr, correctAnswer) => {
-  debugger;
   if (typeof correctAnswer === "object") {
     // correctAnswer can be boolean, number or array, we are checking for array or not and typeof array is object
     return arr.map((obj) => ({

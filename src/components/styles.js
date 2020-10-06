@@ -15,8 +15,7 @@ export const QuizContainer = styled.div`
   flex-direction: column;
   padding: 0 200px;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  min-height: 120vh;
   max-width: 1500px;
   color: #e6ac00;
   background-color: #13433e;
@@ -26,7 +25,12 @@ export const QuizContainer = styled.div`
 
 export const StartTitle = styled.h2`
   margin: 0;
+
   -webkit-text-stroke: 0.5px #664c00;
+
+  @media (min-width: 768px) {
+    margin-top: 120px;
+  }
 `;
 
 export const StartButton = styled.button`
@@ -52,19 +56,28 @@ export const StartButton = styled.button`
 
 export const QuestionTitle = styled.h4`
   text-align: center;
+  justify-self: space-around;
   margin-bottom: 0;
 `;
 
 export const Image = styled.img`
-  max-width: 600px;
+  max-width: 300px;
   margin: 16px 0;
   border-radius: 4px;
   box-shadow: 0px 3px 12px 1px #fff2cc;
+
+  @media (min-width: 768px) {
+    max-width: 600px;
+  }
 `;
 
 export const AnswerContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: row-wrap;
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+  }
 `;
 
 export const AnswerOption = styled.button`
@@ -79,10 +92,9 @@ export const AnswerOption = styled.button`
   color: white;
   background-color: #fff;
   border-radius: 6px;
-
   color: #2a1e59;
   line-height: 1.75em;
-
+  min-height: 55px;
   &:hover,
   &:active {
     background-color: #fff2cc;
@@ -124,7 +136,7 @@ export const SubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4px;
+  margin: 4px 0 16px;
   padding: 6px 12px;
   border: 1px solid #959594;
   background-color: #f9f8f7;
@@ -157,5 +169,19 @@ export const AnswerType = styled.p`
 `;
 
 export const ResultInfo = styled.p`
+  text-align: center;
   margin: 8px;
 `;
+
+export const StartContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  button {
+    align-self: center;
+    max-width: 240px;
+  }
+`;
+
+export const Description = styled.p``;
