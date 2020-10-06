@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
@@ -9,7 +10,7 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const SingleAnswer = ({ question, onAnswersSubmit, showSolution }) => {
+const SingleAnswer = ({ question, onAnswersSubmit }) => {
   const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // to enable/disable submit button if none selected
   const [answers, setAnswers] = useState(
     sanitizeData(question.possible_answers, question.correct_answer)
@@ -59,7 +60,6 @@ const SingleAnswer = ({ question, onAnswersSubmit, showSolution }) => {
             onClick={handleAnswerClick}
             selected={answer.selected}
             isCorrect={answer.isCorrect}
-            showSolution={showSolution}
           >
             {answer.caption}
           </Answer>
@@ -73,6 +73,11 @@ const SingleAnswer = ({ question, onAnswersSubmit, showSolution }) => {
       </SubmitButton>
     </>
   );
+};
+
+SingleAnswer.propTypes = {
+  question: PropTypes.object.isRequired,
+  onAnswersSubmit: PropTypes.func.isRequired,
 };
 
 export default SingleAnswer;

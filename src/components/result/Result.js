@@ -1,60 +1,66 @@
-// import { element } from "prop-types";
 import React from "react";
+import PropTypes from "prop-types";
 import { useResult } from "../../hooks/useResult";
-import { Image, ResultInfo, StartButton, StartTitle } from "../styles";
+import {
+  Image,
+  ResultContainer,
+  ResultInfo,
+  ResultsTitle,
+  StartButton,
+} from "../styles";
 
 const Result = ({ score, restart }) => {
   const [result, loading] = useResult();
   let percentage = Math.floor((score / 20) * 100);
   const results = result.results;
 
-  // Hard coded, could probably refactor
+  // Can be refactored in future
   const getFinalResult = (results, percentage) => {
     if (percentage < 34) {
       const item = results?.filter((element) => element.r_id === 1);
 
       return item?.map((e) => (
-        <div key={e?.r_id}>
+        <ResultContainer key={e?.r_id}>
           <Image src={e?.img} alt={e?.title} />
           <ResultInfo>
             <strong>{e?.title}</strong>
           </ResultInfo>
           <ResultInfo>{e?.message}</ResultInfo>
-        </div>
+        </ResultContainer>
       ));
     } else if (percentage > 67) {
       const item = results?.filter((element) => element.r_id === 3);
 
       return item?.map((e) => (
-        <div key={e?.r_id}>
+        <ResultContainer key={e?.r_id}>
           <Image src={e?.img} alt={e?.title} />
           <ResultInfo>
             <strong>{e?.title}</strong>
           </ResultInfo>
           <ResultInfo>{e?.message}</ResultInfo>
-        </div>
+        </ResultContainer>
       ));
     } else {
       const item = results?.filter((element) => element.r_id === 2);
 
       return item?.map((e) => (
-        <div key={e?.r_id}>
+        <ResultContainer key={e?.r_id}>
           <Image src={e?.img} alt={e?.title} />
           <ResultInfo>
             <strong>{e?.title}</strong>
           </ResultInfo>
           <ResultInfo>{e?.message}</ResultInfo>
-        </div>
+        </ResultContainer>
       ));
     }
   };
   return (
     <>
       {loading ? (
-        <div>Loading</div>
+        <ResultContainer>Loading</ResultContainer>
       ) : (
         <>
-          <StartTitle>Quiz Results</StartTitle>
+          <ResultsTitle>Quiz Results</ResultsTitle>
           <ResultInfo>
             {" "}
             You scored <strong>{percentage}% </strong>. Your final score was{" "}
@@ -69,4 +75,8 @@ const Result = ({ score, restart }) => {
   );
 };
 
+Result.propTypes = {
+  restart: PropTypes.func,
+  score: PropTypes.number,
+};
 export default Result;

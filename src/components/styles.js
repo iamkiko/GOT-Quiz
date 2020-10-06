@@ -33,6 +33,10 @@ export const StartTitle = styled.h2`
   }
 `;
 
+export const ResultsTitle = styled.h2`
+  margin: 0;
+`;
+
 export const StartButton = styled.button`
   font-family: "Cinzel", serif;
   background-color: #26867d;
@@ -62,6 +66,7 @@ export const QuestionTitle = styled.h4`
 
 export const Image = styled.img`
   max-width: 300px;
+  align-self: center;
   margin: 16px 0;
   border-radius: 4px;
   box-shadow: 0px 3px 12px 1px #fff2cc;
@@ -95,22 +100,21 @@ export const AnswerOption = styled.button`
   color: #2a1e59;
   line-height: 1.75em;
   min-height: 55px;
-  &:hover,
-  &:active {
-    background-color: #fff2cc;
-    font-weight: 600;
-  }
 
   ${({ selected }) =>
     selected &&
     css`
+      font-weight: 800;
+      color: #6e62ae;
       border: 2px #e6ac00 solid;
+      box-shadow: 0px 1px 2px 1px #e6ac00;
     `}
 
   ${({ isCorrect, showSolution }) =>
     isCorrect && showSolution
       ? css`
           background: #3acabb;
+          font-weight: 800;
           border: 2px #e6ac00 solid;
           animation: blinker 1.5s linear infinite;
           @keyframes blinker {
@@ -122,6 +126,13 @@ export const AnswerOption = styled.button`
       : css`
           background-color: #fff;
         `}
+
+
+  &:hover,
+  &:active {
+    background-color: #fff2cc;
+    font-weight: 600;
+  }
 `;
 
 export const AnswerColumn = styled.div`
@@ -164,7 +175,7 @@ export const SubmitButton = styled.button`
 `;
 
 export const AnswerType = styled.p`
-  font-size: 12px;
+  font-size: 16px;
   font-style: italic;
 `;
 
@@ -185,3 +196,9 @@ export const StartContainer = styled.div`
 `;
 
 export const Description = styled.p``;
+
+export const ResultContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;

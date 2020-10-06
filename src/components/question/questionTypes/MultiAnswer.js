@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { isEqual, sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
@@ -9,21 +10,15 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const MultiAnswer = ({
-  question,
-  onAnswersSubmit,
-  score,
-  setScore,
-  showSolution,
-}) => {
+const MultiAnswer = ({ question, onAnswersSubmit, score, setScore }) => {
   const [numOfSelectedAnswers, setNumOfSelectedAnswers] = useState(0); // how many options selected
   const [answers, setAnswers] = useState(
     sanitizeData(question.possible_answers, question.correct_answer)
   );
-  const [multipleAnswers, setMultipleAnswers] = useState([]);
+  const [multipleAnswers, setMultipleAnswers] = useState([]); // hold user answer selections
   const correctAnswerArr = question.correct_answer;
   const points = question.points;
-  const comparison = isEqual(correctAnswerArr, multipleAnswers);
+  const comparison = isEqual(correctAnswerArr, multipleAnswers); // compare the correct answer array & user selection
 
   const handleAnswerClick = (answerIndex) => {
     let clickedAnswer = answers[answerIndex];
@@ -91,7 +86,6 @@ const MultiAnswer = ({
             onClick={handleAnswerClick}
             selected={answer.selected}
             isCorrect={answer.isCorrect}
-            showSolution={showSolution}
           >
             {answer?.caption}
           </Answer>
@@ -106,4 +100,12 @@ const MultiAnswer = ({
     </>
   );
 };
+
+MultiAnswer.propTypes = {
+  question: PropTypes.object.isRequired,
+  onAnswersSubmit: PropTypes.func.isRequired,
+  score: PropTypes.number,
+  setScore: PropTypes.func,
+};
+
 export default MultiAnswer;

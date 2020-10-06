@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { useQuiz } from "../../hooks/useQuiz";
 import {
   Description,
@@ -15,6 +16,10 @@ const Start = ({ onStartQuiz }) => {
       <StartButton onClick={onStartQuiz}>Start Quiz</StartButton>
     </StartContainer>
   );
+};
+
+Start.propTypes = {
+  onStartQuiz: PropTypes.func,
 };
 
 export default Start;

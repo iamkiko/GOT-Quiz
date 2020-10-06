@@ -1,6 +1,6 @@
 // Helper function file for logic and calculations
 
-// Add the key of selected false so we can track which answer has been selected
+// Add the key of selected false so we can track which answer has been selected & check if it's correct for highlighting
 export const sanitizeData = (arr, correctAnswer) => {
   if (typeof correctAnswer === "object") {
     // correctAnswer can be boolean, number or array, we are checking for array or not and typeof array is object

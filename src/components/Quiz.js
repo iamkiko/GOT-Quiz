@@ -1,7 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Start from "./start/Start";
 import Question from "./question/Question";
 import Result from "./result/Result";
+import { SolutionContext } from "./SolutionContext";
 import { GlobalStyle, QuizContainer } from "./styles";
 
 const Quiz = ({ questions }) => {
@@ -27,6 +29,7 @@ const Quiz = ({ questions }) => {
       if (answer.selected === true && answer.a_id === correctAnswer) {
         setScore(score + points);
       }
+      return null; // to avoid 'Expected to return a value at the end of arrow func' warning
     });
 
     setShowSolution(true);
@@ -49,19 +52,24 @@ const Quiz = ({ questions }) => {
       {displaySection === "start" ? (
         <Start onStartQuiz={handleQuizInitialization} />
       ) : displaySection === "questions" ? (
-        <Question
-          key={questionIndex}
-          question={questions[questionIndex]}
-          onAnswersSubmit={handleAnswerSubmission}
-          score={score}
-          setScore={setScore}
-          showSolution={showSolution}
-        />
+        <SolutionContext.Provider value={showSolution}>
+          <Question
+            key={questionIndex}
+            question={questions[questionIndex]}
+            onAnswersSubmit={handleAnswerSubmission}
+            score={score}
+            setScore={setScore}
+          />
+        </SolutionContext.Provider>
       ) : (
         <Result restart={() => setDisplaySection("start")} score={score} />
       )}
     </QuizContainer>
   );
+};
+
+Quiz.propTypes = {
+  questions: PropTypes.array,
 };
 
 export default Quiz;

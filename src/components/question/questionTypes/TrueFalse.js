@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { sanitizeData } from "../../../utils/utils";
 import Answer from "../Answer";
 import {
@@ -9,7 +10,7 @@ import {
   SubmitButton,
 } from "../../styles";
 
-const TrueFalse = ({ question, onAnswersSubmit, showSolution }) => {
+const TrueFalse = ({ question, onAnswersSubmit }) => {
   // spread object and append possible_answers to be uniform with other answer formats i.e. store the possible_answers
   const fullQuestion = {
     ...question,
@@ -66,7 +67,6 @@ const TrueFalse = ({ question, onAnswersSubmit, showSolution }) => {
               onClick={handleAnswerClick}
               selected={answer.selected}
               isCorrect={answer.isCorrect}
-              showSolution={showSolution}
             >
               {answer.caption}
             </Answer>
@@ -83,4 +83,8 @@ const TrueFalse = ({ question, onAnswersSubmit, showSolution }) => {
   );
 };
 
+TrueFalse.propTypes = {
+  question: PropTypes.object.isRequired,
+  onAnswersSubmit: PropTypes.func.isRequired,
+};
 export default TrueFalse;
